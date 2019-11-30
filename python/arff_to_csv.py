@@ -20,5 +20,6 @@ for row in rows:
 	personality = max(personality_dict,key= personality_dict.get)
 	fp = open(fileName, "r")
 	text = fp.read()
-	textScores = np.append(textScores, [[text, personality]])
-	print(textScores)
+	textScores.append([text, personality])
+textScores = np.asarray(textScores)
+np.savetxt('data/csv/text_max_traits.csv', textScores, delimiter=',', header='text,MaxTrait', fmt='%s')
