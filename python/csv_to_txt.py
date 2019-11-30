@@ -18,4 +18,4 @@ for row in reader:
 	if createdSoFar == 100:
 		print("=", end="", flush=True)
 		createdSoFar = 0
-print("\nnum files created:", totalCreated)
+print(f"\n{totalCreated} rows written to {totalCreated} files in {OUTPATH}")

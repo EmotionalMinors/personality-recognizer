@@ -1,1 +1,2 @@
 liac-arff==2.4.0
+numpy==1.17.4
