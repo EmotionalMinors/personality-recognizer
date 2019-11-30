@@ -2,7 +2,7 @@
 Recognize personality of authors based on their text. "Forked" from [here](http://farm2.user.srcf.net/research/personality/recognizer)
 ## Required
 Modify the `JAVAPATH` environment variable in `PersonalityRecognizer` to point to your machine's `java` executable
-## Running Examples
+## Running examples
 The following Unix command computes personality scores (self-report) for each text in the examples directory, using standardized SVM models trained on written language:
 
 `PersonalityRecognizer -i examples -d -t 2 -m 4`
