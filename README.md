@@ -15,7 +15,7 @@ First, cleanset.csv must be converted into text files to be ingested by Personal
 
 After about 5 minutes, the files should be generated. To generate cleanset.arff using the SVM model, just run: 
 
-`./PersonalityRecognizer -i data/conv -d -a cleanset.arff -t 2 -m 4`
+`./PersonalityRecognizer -i data/txt -d -a cleanset.arff -t 2 -m 4`
 ## Generating text_max_traits.csv
 To generate the final csv, just run:
 
