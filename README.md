@@ -8,3 +8,7 @@ The following Unix command computes personality scores (self-report) for each te
 `PersonalityRecognizer -i examples -d -t 2 -m 4`
 
 The output of this command can be found in the file output.txt.
+## Generating cleanset.arff
+First, cleanset.csv must be converted into text files to be ingested by PersonalityRecognizer. This is done by creating `data/conv` and running `python3 python/csv_to_text.py`
+After about 10 minutes, the files should be generated. To generate cleanset.arff using the SVM model, just run: 
+`./PersonalityRecognizer -i data/conv -d -a cleanset.arff -t 2 -m 4`
