@@ -3,7 +3,7 @@ Recognize personality of authors based on their text. "Forked" from [here](http:
 ## Requirements
 - Modify the `JAVAPATH` environment variable in `PersonalityRecognizer` to point to your machine's `java` executable
 
-- Add `LIWC.CAT` and `mrc2.dct` to the `lib` directory
+- Add `LIWC.CAT` (Linguistic Inquiry and Word Counter 2001) and `mrc2.dct` (MRC Psycholinguistic Database) to the `lib` directory
 ## Running examples
 The following Unix command computes personality scores (self-report) for each text in the examples directory, using standardized SVM models trained on written language:
 
