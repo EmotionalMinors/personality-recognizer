@@ -7,7 +7,6 @@ The following Unix command computes personality scores (self-report) for each te
 
 `PersonalityRecognizer -i examples -d -t 2 -m 4`
 
-The output of this command can be found in the file output.txt.
 ## Generating newcleanset.csv
 `newcleanset.csv` is the review data in `cleanset.csv` appended with the personality scores of the reviewers. To generate `newcleanset.csv`, just run:
 
@@ -15,11 +14,11 @@ The output of this command can be found in the file output.txt.
 
 `./run.sh` does the following:
 ### Generating cleanset.arff
-First, cleanset.csv must be converted into text files to be ingested by PersonalityRecognizer. This is done by creating `data/txt` and running: 
+First, `cleanset.csv` must be converted into text files to be ingested by `PersonalityRecognizer`. This is done by creating `data/txt` and running: 
 
 `python3 python/csv_to_txt.py`
 
-After about 5 minutes, the files should be generated. To generate cleanset.arff using the SVM model, the following is run: 
+After about 5 minutes, the files should be generated. To generate `cleanset.arff` using the SVM model, the following is run: 
 
 `./PersonalityRecognizer -i data/txt -d -a cleanset.arff -t 2 -m 4`
 ### Generating text_max_traits.csv
