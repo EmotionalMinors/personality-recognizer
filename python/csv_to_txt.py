@@ -10,7 +10,7 @@ totalCreated = 0
 createdSoFar = 0
 print("progress:", end="", flush=True)
 for row in reader:
-	title = ":".join(row[1].split(":", 2)[:2]).replace("/", ":")
+	title = row[0]
 	f = open(os.path.join(OUTPATH, title + ".txt"), "w+")
 	f.write(row[11])
 	createdSoFar += 1
