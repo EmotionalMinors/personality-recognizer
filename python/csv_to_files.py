@@ -1,13 +1,21 @@
 import os
 import csv
 
-outPath = "data/text_files/"
-fileName = "data/csv/cleanset.csv"
-csvFile = open(fileName, "rU", encoding='ISO-8859-1')
+OUTPATH = "data/text_files/"
+FILENAME = "data/csv/cleanset.csv"
+csvFile = open(FILENAME, "rU", encoding='ISO-8859-1')
 reader = csv.reader(csvFile, delimiter=',')
 next(reader)
+totalCreated = 0
+createdSoFar = 0
+print("progress:", end="", flush=True)
 for row in reader:
-	print(row[1], row[11])
-	f = open(os.path.join(outPath, row[1] + ".txt"), "w+")
+	title = row[1].split(":")[0]
+	f = open(os.path.join(OUTPATH, title + ".txt"), "w+")
 	f.write(row[11])
-	break
+	createdSoFar += 1
+	totalCreated += 1
+	if createdSoFar == 100:
+		print("=", end="", flush=True)
+		createdSoFar = 0
+print("\nnum files created:", filesCreated)
