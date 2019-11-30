@@ -5,6 +5,7 @@ OUTPATH = "data/txt/"
 FILENAME = "data/csv/cleanset.csv"
 csvFile = open(FILENAME, "rU", encoding='ISO-8859-1')
 reader = csv.reader(csvFile, delimiter=',')
+# skip header
 next(reader)
 totalCreated = 0
 createdSoFar = 0

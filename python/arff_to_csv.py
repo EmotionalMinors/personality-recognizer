@@ -3,50 +3,55 @@ import csv
 import os.path as path
 from collections import OrderedDict 
 
-# Extra	Emoti	Agree	Consc	Openn
-OUTFILE="data/csv/newcleanset.csv"
-fp = open('data/csv/cleanset.csv', 'r', encoding='ISO-8859-1')
-reader = csv.reader(fp)
-cleanDict = OrderedDict()
-headers = next(reader)
-headers.append("MaxTrait")
-print(headers)
-# map row id to row
-for row in reader:
-	cleanDict[row[0]] = row
-# convert arff to csv 
-arffFile = open('cleanset.arff', 'r+', encoding='UTF-8')
-csvFile = arff.load(arffFile)
-rows = csvFile["data"]
+CLEANSET_CSV_PATH = 'data/csv/cleanset.csv'
+CLEANSET_ARFF_PATH = 'cleanset.arff'
+CLEANSET_CSV_ENCODING = 'ISO-8859-1'
+CLEANSET_ARFF_ENCODING = 'UTF-8'
+PERSONALITY_HEADER = 'MaxTrait'
+OUTFILE = 'data/csv/newcleanset.csv'
 
-outFile = csv.writer(open(OUTFILE, 'w'))
-personality_dict = {}
-p_scores = []
-textScores = []
-totalScores = 0
-scoresSoFar = 0
+def get_dict_and_header():
+	fp = open(CLEANSET_CSV_PATH, 'r', encoding = CLEANSET_CSV_ENCODING)
+	reader = csv.reader(fp)
+	clean_dict = OrderedDict()
+	header = next(reader)
+	header.append(PERSONALITY_HEADER)	
+	# map row id to row
+	for row in reader:
+		clean_dict[row[0]] = row
+	return clean_dict, header
 
-print("progress:", end="", flush=True)
-for row in rows:
-	# get personality scores and replace dummy character
-	p_scores = row[-5:]
-	row_id = path.basename(row[0]).split(".txt")[0]
-	# map p scores
-	personality_dict["extraversion"] = p_scores[0]
-	personality_dict["neuroticism"] = p_scores[1]
-	personality_dict["agreeableness"] = p_scores[2]
-	personality_dict["conscientiousness"] = p_scores[3]
-	personality_dict["openness"] = p_scores[4] 
-	maxTrait = max(personality_dict, key = personality_dict.get)
-	# add maxTrait column
-	cleanDict[row_id].append(maxTrait)
-	totalScores += 1
-	scoresSoFar += 1
-	if scoresSoFar == 100:
-		print("=", end="", flush=True)
-		scoresSoFar = 0
-# write out dictionary to csv 
-outFile.writerow(headers)
-for k in cleanDict.keys():
-	outFile.writerow(cleanDict[k])
-print(f"\n{totalScores} rows written to {OUTFILE}")
+def get_recognized_rows(): 
+	arff_file = open(CLEANSET_ARFF_PATH, 'r+', encoding = CLEANSET_ARFF_ENCODING)
+	csv_file = arff.load(arff_file)
+	return csv_file["data"]
+
+def hydrate_dict(clean_dict, rows):
+	p_dict = {}
+	p_scores = []
+	for row in rows:
+		# get personality scores and filename
+		p_scores = row[-5:]
+		row_id = path.basename(row[0]).split(".txt")[0]
+		# map p scores
+		p_dict["extraversion"] = p_scores[0]
+		p_dict["neuroticism"] = p_scores[1]
+		p_dict["agreeableness"] = p_scores[2]
+		p_dict["conscientiousness"] = p_scores[3]
+		p_dict["openness"] = p_scores[4] 
+		max_trait = max(p_dict, key = p_dict.get)
+		# add maxTrait column using filename
+		clean_dict[row_id].append(max_trait)
+
+def write_out_dict(clean_dict, header):
+	outfile = csv.writer(open(OUTFILE, 'w'))
+	outfile.writerow(header)
+	for k in clean_dict.keys():
+		outfile.writerow(clean_dict[k])
+	print(f"{len(clean_dict.values())} rows written to {OUTFILE}")
+
+if __name__ == "__main__":
+	clean_dict, header = get_dict_and_header()
+	rows = get_recognized_rows()
+	hydrate_dict(clean_dict, rows)
+	write_out_dict(clean_dict, header)
