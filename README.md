@@ -1,5 +1,5 @@
 # personality-recognizer
-recognize personality of authors based on their text
+Recognize personality of authors based on their text. "Forked" from [here](http://farm2.user.srcf.net/research/personality/recognizer)
 ## Instructions
 Modify the `JAVAPATH` environment variable in `PersonalityRecognizer` to point to your machine's `java` executable
 ## Examples
